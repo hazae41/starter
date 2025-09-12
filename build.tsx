@@ -3,9 +3,7 @@ import { ReactNode } from "react";
 import { prerender } from "react-dom/static";
 
 declare global {
-  interface GlobalThis {
-    App: (() => ReactNode) | undefined
-  }
+  var App: unknown
 }
 
 async function renderToString(node: ReactNode) {
