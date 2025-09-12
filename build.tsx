@@ -1,4 +1,4 @@
-import { dirname } from "@std/path";
+import { basename, dirname } from "@std/path";
 import { ReactNode } from "react";
 import { prerender } from "react-dom/static";
 
@@ -56,7 +56,7 @@ await (async () => {
     for (const script of bundle.outputFiles) {
       if (!script.path.endsWith(".js"))
         continue
-      if (!document.text().includes(script.path))
+      if (!output.includes(basename(script.path)))
         continue
 
       globalThis.App = undefined
