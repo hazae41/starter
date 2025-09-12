@@ -1,0 +1,80 @@
+import { dirname } from "@std/path";
+import { ReactNode } from "react";
+import { prerender } from "react-dom/static";
+
+declare global {
+  interface GlobalThis {
+    App: (() => ReactNode) | undefined
+  }
+}
+
+async function renderToString(node: ReactNode) {
+  using stack = new DisposableStack()
+
+  const stream = await prerender(node)
+  const reader = stream.prelude.getReader()
+
+  stack.defer(() => reader.releaseLock())
+
+  let html = ""
+
+  for (let result = await reader.read(); !result.done; result = await reader.read())
+    html += new TextDecoder().decode(result.value)
+
+  return html
+}
+
+await (async () => {
+  try {
+    Deno.removeSync("./out", { recursive: true })
+  } catch {
+    // NOOP
+  }
+
+  const entrypoints = [
+    "./src/mods/app/index.html",
+    "./src/mods/app/test/index.html"
+  ]
+
+  const bundle = await Deno.bundle({ entrypoints, outputDir: "./out", write: false });
+
+  if (bundle.outputFiles == null)
+    throw new Error("No output files found")
+
+  for (const file of bundle.outputFiles) {
+    Deno.mkdirSync(dirname(file.path), { recursive: true })
+
+    if (file.path.endsWith(".html"))
+      continue
+
+    Deno.writeTextFileSync(file.path, file.text())
+  }
+
+  for (const document of bundle.outputFiles) {
+    if (!document.path.endsWith(".html"))
+      continue
+    let output = document.text()
+
+    for (const script of bundle.outputFiles) {
+      if (!script.path.endsWith(".js"))
+        continue
+      if (!document.text().includes(script.path))
+        continue
+
+      globalThis.App = undefined
+
+      await import(script.path)
+
+      if (App == null)
+        continue
+
+      const rendered = await renderToString(<App />)
+
+      output = output.replaceAll("<app />", rendered)
+    }
+
+    Deno.writeTextFileSync(document.path, output)
+  }
+})()
+
+close()
