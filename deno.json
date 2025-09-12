@@ -1,0 +1,15 @@
+{
+  "imports": {
+    "@types/react": "npm:@types/react@^19.1.12",
+    "@types/react-dom": "npm:@types/react-dom@^19.1.9",
+    "react": "npm:react@^19.1.1",
+    "react-dom": "npm:react-dom@^19.1.1"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  },
+  "unstable": [
+    "bundle"
+  ]
+}
