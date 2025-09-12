@@ -50,6 +50,8 @@ async function renderToString(node: ReactNode) {
 }
 
 await (async () => {
+  Deno.removeSync("./out", { recursive: true })
+
   const result = await Deno.bundle({ entrypoints: ["./src/mods/app/index.html"], outputDir: "./out", format: "esm", write: false });
 
   const document = result.outputFiles?.find(file => file.path.endsWith(".html"))
@@ -62,20 +64,20 @@ await (async () => {
   Deno.mkdirSync("./out", { recursive: true })
 
   if (script == null)
-    return void Deno.writeTextFileSync("./out/index.html", document.text())
+    return void Deno.writeTextFileSync(document.path, document.text())
 
-  Deno.writeTextFileSync("./out/index.js", script.text())
+  Deno.writeTextFileSync(script.path, script.text())
 
   await import("./out/index.js")
 
   if (App == null)
-    return void Deno.writeTextFileSync("./out/index.html", document.text())
+    return void Deno.writeTextFileSync(document.path, document.text())
 
   const content = await renderToString(<App />)
 
   const output = document.text().replaceAll("<app />", content)
 
-  Deno.writeTextFileSync("./out/index.html", output)
+  Deno.writeTextFileSync(document.path, output)
 })()
 
 close()

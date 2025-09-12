@@ -1017,7 +1017,7 @@ function Page() {
     children: "Welcome"
   });
 }
-globalThis.App = Page;
+App = Page;
 /**
  * @license React
  * react.development.js
