@@ -1011,6 +1011,7 @@ var require_jsx_runtime = __commonJS({
 
 export {
   __toESM,
+  require__,
   require_jsx_runtime
 };
 /**

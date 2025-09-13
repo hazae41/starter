@@ -1,6 +1,7 @@
-import { basename, dirname, normalize, relative } from "@std/path";
+import { basename, dirname, extname, normalize, relative, } from "@std/path";
 import { ReactNode } from "react";
 import { prerender } from "react-dom/static";
+
 
 declare global {
   var App: unknown
@@ -44,25 +45,25 @@ await (async () => {
   for (const file of bundle.outputFiles)
     files.add({ path: file.path, text: file.text() })
 
-  for (const script of files) {
-    if (!script.path.endsWith(".js"))
-      continue
+  for (const referee of files) {
+    const type = extname(referee.path)
+    const name = basename(referee.path, type)
 
-    const original = basename(script.path)
-    const replaced = original.split("-")[0] + ".js"
+    const original = name + type
+    const replaced = name.split("-")[0] + type
 
-    for (const file of files) {
-      if (file.path === script.path)
+    for (const referer of files) {
+      if (referer.path === referee.path)
         continue
-      const target = normalize(relative(dirname(file.path), script.path))
+      const target = normalize(relative(dirname(referer.path), referee.path))
       const needle = `"${target.startsWith(".") ? target : `./${target}`}"`
 
-      if (!file.text.includes(needle))
+      if (!referer.text.includes(needle))
         continue
-      file.text = file.text.replaceAll(needle, needle.replaceAll(original, replaced))
+      referer.text = referer.text.replaceAll(needle, needle.replaceAll(original, replaced))
     }
 
-    script.path = script.path.replaceAll(original, replaced)
+    referee.path = referee.path.replaceAll(original, replaced)
   }
 
   for (const file of files) {
