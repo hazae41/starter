@@ -1,7 +1,8 @@
 import { basename, dirname, extname, normalize, relative, } from "@std/path";
-import { ReactNode } from "react";
-import { prerender } from "react-dom/static";
+import React, { ReactNode } from "react";
+import { prerender } from "react-dom/static.browser";
 
+React;
 
 declare global {
   var App: unknown
@@ -24,16 +25,46 @@ async function renderToString(node: ReactNode) {
 }
 
 await (async () => {
-  try {
-    Deno.removeSync("./out", { recursive: true })
-  } catch {
-    // NOOP
-  }
-
   const entrypoints = [
     "./src/mods/app/index.html",
     "./src/mods/app/test/index.html"
   ]
+
+  const prerenders = new Map<string, string>()
+
+  for (const entrypoint of entrypoints) {
+    const prebundle = await Deno.bundle({ entrypoints: [entrypoint], outputDir: "./out", write: false, external: ["react"], format: "esm" })
+
+    if (prebundle.outputFiles == null)
+      throw new Error("No output files found")
+
+    for (const document of prebundle.outputFiles) {
+      if (!document.path.endsWith(".html"))
+        continue
+      globalThis.App = undefined
+
+      for (const script of prebundle.outputFiles) {
+        if (!script.path.endsWith(".js"))
+          continue
+        const file = Deno.makeTempFileSync()
+
+        Deno.writeTextFileSync(file, script.text())
+
+        await import(file)
+
+        if (App == null)
+          continue
+
+        const rendered = await renderToString(<App />)
+
+        prerenders.set(document.path, rendered)
+
+        break
+      }
+
+      break
+    }
+  }
 
   const bundle = await Deno.bundle({ entrypoints, outputDir: "./out", write: false });
 
@@ -66,42 +97,23 @@ await (async () => {
     referee.path = referee.path.replaceAll(original, replaced)
   }
 
+  try {
+    Deno.removeSync("./out", { recursive: true })
+  } catch {
+    // NOOP
+  }
+
   for (const file of files) {
     Deno.mkdirSync(dirname(file.path), { recursive: true })
 
-    if (file.path.endsWith(".html"))
-      continue
+    const prerender = prerenders.get(file.path)
 
-    Deno.writeTextFileSync(file.path, file.text)
-  }
+    if (prerender != null)
+      Deno.writeTextFileSync(file.path, file.text.replaceAll("<app />", prerender))
+    else
+      Deno.writeTextFileSync(file.path, file.text)
 
-  for (const document of files) {
-    if (!document.path.endsWith(".html"))
-      continue
-    let output = document.text
-
-    for (const script of files) {
-      if (!script.path.endsWith(".js"))
-        continue
-      const target = normalize(relative(dirname(document.path), script.path))
-      const needle = `"${target.startsWith(".") ? target : `./${target}`}"`
-
-      if (!document.text.includes(needle))
-        continue
-
-      globalThis.App = undefined
-
-      await import(script.path)
-
-      if (App == null)
-        continue
-
-      const rendered = await renderToString(<App />)
-
-      output = output.replaceAll("<app />", rendered)
-    }
-
-    Deno.writeTextFileSync(document.path, output)
+    continue
   }
 })()
 

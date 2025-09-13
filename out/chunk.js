@@ -24,9 +24,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// ../../../Library/Caches/deno/npm/registry.npmjs.org/react/19.1.1/cjs/react.development.js
+// node_modules/.deno/react@19.1.1/node_modules/react/cjs/react.development.js
 var require_react_development = __commonJS({
-  "../../../Library/Caches/deno/npm/registry.npmjs.org/react/19.1.1/cjs/react.development.js"(exports, module) {
+  "node_modules/.deno/react@19.1.1/node_modules/react/cjs/react.development.js"(exports, module) {
     "use strict";
     (function() {
       function defineDeprecationWarning(methodName, info) {
@@ -780,9 +780,9 @@ var require_react_development = __commonJS({
   }
 });
 
-// ../../../Library/Caches/deno/npm/registry.npmjs.org/react/19.1.1/index.js
-var require__ = __commonJS({
-  "../../../Library/Caches/deno/npm/registry.npmjs.org/react/19.1.1/index.js"(exports, module) {
+// node_modules/.deno/react@19.1.1/node_modules/react/index.js
+var require_react = __commonJS({
+  "node_modules/.deno/react@19.1.1/node_modules/react/index.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -792,9 +792,9 @@ var require__ = __commonJS({
   }
 });
 
-// ../../../Library/Caches/deno/npm/registry.npmjs.org/react/19.1.1/cjs/react-jsx-runtime.development.js
+// node_modules/.deno/react@19.1.1/node_modules/react/cjs/react-jsx-runtime.development.js
 var require_react_jsx_runtime_development = __commonJS({
-  "../../../Library/Caches/deno/npm/registry.npmjs.org/react/19.1.1/cjs/react-jsx-runtime.development.js"(exports) {
+  "node_modules/.deno/react@19.1.1/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
     "use strict";
     (function() {
       function getComponentNameFromType(type) {
@@ -969,7 +969,7 @@ var require_react_jsx_runtime_development = __commonJS({
       function validateChildKeys(node) {
         "object" === typeof node && null !== node && node.$$typeof === REACT_ELEMENT_TYPE && node._store && (node._store.validated = 1);
       }
-      var React = require__(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler");
+      var React = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler");
       Symbol.for("react.provider");
       var REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
@@ -997,9 +997,9 @@ var require_react_jsx_runtime_development = __commonJS({
   }
 });
 
-// ../../../Library/Caches/deno/npm/registry.npmjs.org/react/19.1.1/jsx-runtime.js
+// node_modules/.deno/react@19.1.1/node_modules/react/jsx-runtime.js
 var require_jsx_runtime = __commonJS({
-  "../../../Library/Caches/deno/npm/registry.npmjs.org/react/19.1.1/jsx-runtime.js"(exports, module) {
+  "node_modules/.deno/react@19.1.1/node_modules/react/jsx-runtime.js"(exports, module) {
     "use strict";
     if (false) {
       module.exports = null;
@@ -1011,24 +1011,30 @@ var require_jsx_runtime = __commonJS({
 
 export {
   __toESM,
-  require__,
+  require_react,
   require_jsx_runtime
 };
-/**
- * @license React
- * react.development.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-/**
- * @license React
- * react-jsx-runtime.development.js
- *
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+/*! Bundled license information:
+
+react/cjs/react.development.js:
+  (**
+   * @license React
+   * react.development.js
+   *
+   * Copyright (c) Meta Platforms, Inc. and affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+
+react/cjs/react-jsx-runtime.development.js:
+  (**
+   * @license React
+   * react-jsx-runtime.development.js
+   *
+   * Copyright (c) Meta Platforms, Inc. and affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+*/

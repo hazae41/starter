@@ -1,16 +1,20 @@
 {
   "imports": {
     "@std/path": "jsr:@std/path@^1.1.2",
-    "@types/react": "npm:@types/react@^19.1.12",
+    "@types/react": "npm:@types/react@^19.1.13",
     "@types/react-dom": "npm:@types/react-dom@^19.1.9",
     "react": "npm:react@^19.1.1",
     "react-dom": "npm:react-dom@^19.1.1",
     "tailwindcss": "npm:tailwindcss@^4.1.13"
   },
+  "nodeModulesDir": "auto",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "jsxFactory": "React.createElement"
+    "types": [
+      "react",
+      "react-dom",
+      "@types/react"
+    ],
+    "jsx": "react-jsx"
   },
   "unstable": [
     "bundle"
