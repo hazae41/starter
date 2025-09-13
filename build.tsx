@@ -57,8 +57,6 @@ await (async () => {
       const target = normalize(relative(dirname(file.path), script.path))
       const needle = `"${target.startsWith(".") ? target : `./${target}`}"`
 
-      console.log(file.path, needle)
-
       if (!file.text.includes(needle))
         continue
       file.text = file.text.replaceAll(needle, needle.replaceAll(original, replaced))
@@ -87,9 +85,7 @@ await (async () => {
       const target = normalize(relative(dirname(document.path), script.path))
       const needle = `"${target.startsWith(".") ? target : `./${target}`}"`
 
-      console.log(needle)
-
-      if (!output.includes(needle))
+      if (!document.text.includes(needle))
         continue
 
       globalThis.App = undefined
