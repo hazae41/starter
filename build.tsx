@@ -39,21 +39,42 @@ await (async () => {
   if (bundle.outputFiles == null)
     throw new Error("No output files found")
 
-  for (const file of bundle.outputFiles) {
+  const files = new Set<{ path: string; text: string }>()
+
+  for (const file of bundle.outputFiles)
+    files.add({ path: file.path, text: file.text() })
+
+  for (const script of files) {
+    if (!script.path.endsWith(".js"))
+      continue
+
+    const original = basename(script.path)
+    const replaced = original.split("-")[0] + ".js"
+
+    script.path = script.path.replaceAll(original, replaced)
+
+    for (const file of files) {
+      if (!file.text.includes(original))
+        continue
+      file.text = file.text.replaceAll(original, replaced)
+    }
+  }
+
+  for (const file of files) {
     Deno.mkdirSync(dirname(file.path), { recursive: true })
 
     if (file.path.endsWith(".html"))
       continue
 
-    Deno.writeTextFileSync(file.path, file.text())
+    Deno.writeTextFileSync(file.path, file.text)
   }
 
-  for (const document of bundle.outputFiles) {
+  for (const document of files) {
     if (!document.path.endsWith(".html"))
       continue
-    let output = document.text()
+    let output = document.text
 
-    for (const script of bundle.outputFiles) {
+    for (const script of files) {
       if (!script.path.endsWith(".js"))
         continue
       if (!output.includes(basename(script.path)))
