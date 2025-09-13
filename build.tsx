@@ -1,4 +1,4 @@
-import { basename, dirname } from "@std/path";
+import { basename, dirname, normalize, relative } from "@std/path";
 import { ReactNode } from "react";
 import { prerender } from "react-dom/static";
 
@@ -51,13 +51,20 @@ await (async () => {
     const original = basename(script.path)
     const replaced = original.split("-")[0] + ".js"
 
-    script.path = script.path.replaceAll(original, replaced)
-
     for (const file of files) {
-      if (!file.text.includes(original))
+      if (file.path === script.path)
         continue
-      file.text = file.text.replaceAll(original, replaced)
+      const target = normalize(relative(dirname(file.path), script.path))
+      const needle = `"${target.startsWith(".") ? target : `./${target}`}"`
+
+      console.log(file.path, needle)
+
+      if (!file.text.includes(needle))
+        continue
+      file.text = file.text.replaceAll(needle, needle.replaceAll(original, replaced))
     }
+
+    script.path = script.path.replaceAll(original, replaced)
   }
 
   for (const file of files) {
@@ -77,7 +84,12 @@ await (async () => {
     for (const script of files) {
       if (!script.path.endsWith(".js"))
         continue
-      if (!output.includes(basename(script.path)))
+      const target = normalize(relative(dirname(document.path), script.path))
+      const needle = `"${target.startsWith(".") ? target : `./${target}`}"`
+
+      console.log(needle)
+
+      if (!output.includes(needle))
         continue
 
       globalThis.App = undefined
