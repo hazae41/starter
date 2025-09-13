@@ -33,7 +33,7 @@ await (async () => {
   const prerenders = new Map<string, string>()
 
   for (const entrypoint of entrypoints) {
-    const prebundle = await Deno.bundle({ entrypoints: [entrypoint], outputDir: "./out", write: false, external: ["react"], format: "esm" })
+    const prebundle = await Deno.bundle({ entrypoints: [entrypoint], outputDir: "./out", write: false, external: ["react", "react-dom"], format: "esm" })
 
     if (prebundle.outputFiles == null)
       throw new Error("No output files found")
@@ -41,16 +41,15 @@ await (async () => {
     for (const document of prebundle.outputFiles) {
       if (!document.path.endsWith(".html"))
         continue
-      globalThis.App = undefined
 
       for (const script of prebundle.outputFiles) {
         if (!script.path.endsWith(".js"))
           continue
         const file = Deno.makeTempFileSync()
 
-        Deno.writeTextFileSync(file, script.text())
+        Deno.writeTextFileSync(file, script.text().replaceAll("function App()", "export function App()"))
 
-        await import(file)
+        const { App } = await import(file)
 
         if (App == null)
           continue
