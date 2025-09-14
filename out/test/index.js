@@ -1,13 +1,13 @@
 import {
   __toESM,
+  require__,
   require_client,
-  require_jsx_runtime,
-  require_react
+  require_jsx_runtime
 } from "../chunk.js";
 
 // src/mods/app/test/index.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime());
-var import_react = __toESM(require_react());
+var import_react = __toESM(require__());
 var import_client = __toESM(require_client());
 function App() {
   (0, import_react.useMemo)(() => "lol", []);

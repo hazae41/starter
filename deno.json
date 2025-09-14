@@ -8,12 +8,10 @@
     "react-dom": "npm:react-dom@^19.1.1",
     "tailwindcss": "npm:tailwindcss@^4.1.13"
   },
-  "nodeModulesDir": "auto",
   "compilerOptions": {
     "types": [
-      "react",
-      "react-dom",
-      "@types/react"
+      "@types/react",
+      "@types/react-dom"
     ],
     "jsx": "react-jsx"
   },

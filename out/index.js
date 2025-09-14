@@ -1,14 +1,14 @@
 import {
   __toESM,
+  require__,
   require_client,
-  require_jsx_runtime,
-  require_react
+  require_jsx_runtime
 } from "./chunk.js";
 
 // src/mods/app/index.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime());
 
-// node_modules/.deno/tailwindcss@4.1.13/node_modules/tailwindcss/dist/chunk-HTB5LLOP.mjs
+// ../../../Library/Caches/deno/npm/registry.npmjs.org/tailwindcss/4.1.13/dist/chunk-HTB5LLOP.mjs
 var l = {
   inherit: "inherit",
   current: "currentcolor",
@@ -303,7 +303,7 @@ var l = {
   }
 };
 
-// node_modules/.deno/tailwindcss@4.1.13/node_modules/tailwindcss/dist/chunk-G32FJCSR.mjs
+// ../../../Library/Caches/deno/npm/registry.npmjs.org/tailwindcss/4.1.13/dist/chunk-G32FJCSR.mjs
 var _ = /* @__PURE__ */ new Set([
   "black",
   "silver",
@@ -1982,7 +1982,7 @@ var be = {
   }
 };
 
-// node_modules/.deno/tailwindcss@4.1.13/node_modules/tailwindcss/dist/chunk-U5SIPDGO.mjs
+// ../../../Library/Caches/deno/npm/registry.npmjs.org/tailwindcss/4.1.13/dist/chunk-U5SIPDGO.mjs
 var Pt = "4.1.13";
 var Ve = 92;
 var Ie = 47;
@@ -14535,17 +14535,17 @@ var Rewind = class {
   styles = /* @__PURE__ */ new Map();
   observer = new MutationObserver(() => this.#recompile());
   async compile() {
-    for (const x2 of allItemsOf(document.querySelectorAll("[class]"))) for (const y2 of allItemsOf(x2.classList)) this.classes.add(y2);
-    for (const x2 of allItemsOf(document.getElementsByTagName("link"))) {
-      if (x2.rel !== "stylesheet") continue;
-      const css = await fetch(x2.href).then((r) => r.text());
-      const compiler = await $a(css);
+    for (const element of allItemsOf(document.querySelectorAll("[class]"))) for (const name of allItemsOf(element.classList)) this.classes.add(name);
+    for (const link of allItemsOf(document.getElementsByTagName("link"))) {
+      if (link.rel !== "stylesheet") continue;
+      const source = await fetch(link.href).then((r) => r.text());
+      const compiler = await $a(source);
       const style = document.createElement("style");
       style.textContent = compiler.build([
         ...this.classes
       ]);
-      x2.replaceWith(style);
       this.styles.set(style, compiler);
+      link.replaceWith(style);
     }
     this.observer.observe(document, {
       attributes: true,
@@ -14557,7 +14557,9 @@ var Rewind = class {
     });
   }
   #recompile() {
+    const size = this.classes.size;
     for (const x2 of allItemsOf(document.querySelectorAll("[class]"))) for (const y2 of allItemsOf(x2.classList)) this.classes.add(y2);
+    if (size === this.classes.size) return;
     for (const [style, compiler] of this.styles) style.textContent = compiler.build([
       ...this.classes
     ]);
@@ -14566,7 +14568,7 @@ var Rewind = class {
 };
 
 // src/mods/app/index.tsx
-var import_react = __toESM(require_react());
+var import_react = __toESM(require__());
 var import_client = __toESM(require_client());
 function App() {
   (0, import_react.useEffect)(() => {
