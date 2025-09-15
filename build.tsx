@@ -36,9 +36,7 @@ await (async () => {
 
   try {
     Deno.removeSync("./out", { recursive: true })
-  } catch {
-    // NOOP
-  }
+  } catch { /* NOOP */ }
 
   for (const file of files) {
     Deno.mkdirSync(dirname(file.path), { recursive: true })
