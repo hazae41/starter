@@ -1,6 +1,6 @@
 /// <reference lib="dom" />
 
-import { Rewind } from "@/libs/tailwind/mod.ts";
+import { Rewind } from "@hazae41/rewind";
 import { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
@@ -24,6 +24,6 @@ root.hidden = true
 
 createRoot(root).render(<App />)
 
-await new Rewind().compile()
+await new Rewind(document).compile()
 
 root.hidden = false

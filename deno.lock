@@ -1,6 +1,7 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@hazae41/rewind@1": "1.0.0",
     "jsr:@std/internal@^1.0.10": "1.0.10",
     "jsr:@std/path@*": "1.1.2",
     "jsr:@std/path@^1.1.2": "1.1.2",
@@ -11,6 +12,12 @@
     "npm:tailwindcss@^4.1.13": "4.1.13"
   },
   "jsr": {
+    "@hazae41/rewind@1.0.0": {
+      "integrity": "d46b5c8f5840c2cc963a5bbabd4409d0e6cb7f04f6032f9382d18713a267b278",
+      "dependencies": [
+        "npm:tailwindcss"
+      ]
+    },
     "@std/internal@1.0.10": {
       "integrity": "e3be62ce42cab0e177c27698e5d9800122f67b766a0bea6ca4867886cbde8cf7"
     },
@@ -56,12 +63,12 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@hazae41/rewind@1",
       "jsr:@std/path@^1.1.2",
       "npm:@types/react-dom@^19.1.9",
       "npm:@types/react@^19.1.13",
       "npm:react-dom@^19.1.1",
-      "npm:react@^19.1.1",
-      "npm:tailwindcss@^4.1.13"
+      "npm:react@^19.1.1"
     ]
   }
 }

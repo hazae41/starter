@@ -1,12 +1,12 @@
 {
   "imports": {
     "@/": "./src/",
+    "@hazae41/rewind": "jsr:@hazae41/rewind@^1.0.0",
     "@std/path": "jsr:@std/path@^1.1.2",
     "@types/react": "npm:@types/react@^19.1.13",
     "@types/react-dom": "npm:@types/react-dom@^19.1.9",
     "react": "npm:react@^19.1.1",
-    "react-dom": "npm:react-dom@^19.1.1",
-    "tailwindcss": "npm:tailwindcss@^4.1.13"
+    "react-dom": "npm:react-dom@^19.1.1"
   },
   "compilerOptions": {
     "types": [

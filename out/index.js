@@ -14531,9 +14531,16 @@ function* allItemsOf(items) {
 
 // src/libs/tailwind/mod.ts
 var Rewind = class {
-  classes = /* @__PURE__ */ new Set();
-  styles = /* @__PURE__ */ new Map();
-  observer = new MutationObserver(() => this.#recompile());
+  document;
+  classes;
+  styles;
+  observer;
+  constructor(document1 = document1) {
+    this.document = document1;
+    this.classes = /* @__PURE__ */ new Set();
+    this.styles = /* @__PURE__ */ new Map();
+    this.observer = new MutationObserver(() => this.#recompile());
+  }
   async compile() {
     for (const element of allItemsOf(document.querySelectorAll("[class]"))) for (const name of allItemsOf(element.classList)) this.classes.add(name);
     for (const link of allItemsOf(document.getElementsByTagName("link"))) {
