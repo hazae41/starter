@@ -1,7 +1,7 @@
 import { basename, dirname, extname, normalize, relative, } from "@std/path";
 
 await (async () => {
-  const entrypoints = ["./src/mods/app/index.html", "./src/mods/app/test/index.html"]
+  const entrypoints = ["./src/mods/app/index.html"]
 
   const bundle = await Deno.bundle({ entrypoints, outputDir: "./out", write: false });
 

@@ -1,5 +1,1 @@
 @import "tailwindcss/index";
-
-.lol {
-  @apply text-3xl font-bold underline;
-}
