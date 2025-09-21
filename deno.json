@@ -1,5 +1,4 @@
 {
-  "vendor": true,
   "imports": {
     "@/": "./src/",
     "@hazae41/rewind": "jsr:@hazae41/rewind@^1.0.15",
