@@ -10,10 +10,6 @@
     "tailwindcss": "npm:tailwindcss@^4.1.13"
   },
   "compilerOptions": {
-    "types": [
-      "@types/react",
-      "@types/react-dom"
-    ],
     "jsx": "react-jsx"
   },
   "unstable": [
