@@ -1,4 +1,4 @@
-import { basename, dirname, extname, normalize, relative, } from "@std/path";
+import { basename, dirname, extname, normalize, relative } from "node:path";
 
 await (async () => {
   const entrypoints = ["./src/mods/app/index.html"]
