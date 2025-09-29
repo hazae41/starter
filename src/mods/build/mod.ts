@@ -1,39 +1,93 @@
 import esbuild from "esbuild";
-import { Document, Window } from "happy-dom";
-import { readFileSync } from "node:fs";
+import { HTMLScriptElement, Window } from "happy-dom";
+import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-const entrypoints = ["./src/mods/app/index.html", "./src/mods/app/test/index.html"]
+const entrypoints = ["./src/mods/app/index.html", "./src/mods/app/aaa/index.html", "./src/mods/app/bbb/index.html"]
 
-const windows = new Map<string, Window>()
-const documents = new Map<string, Document>()
+function common(a: string, b: string) {
+  const sa = path.resolve(a).split(path.sep)
+  const sb = path.resolve(b).split(path.sep)
 
-const scripts = new Array<string>()
+  let i = 0
+
+  while (i < sa.length && i < sb.length && sa[i] === sb[i])
+    i++
+
+  return sa.slice(0, i).join(path.sep)
+}
+
+const ancestor = entrypoints.reduce((a, b) => common(a, b))
+
+const inputs = new Array<string>()
+
+interface Output {
+  readonly path: string
+  readonly text: string
+  readonly hash: string
+}
+
+const resolveOnOutputs = Promise.withResolvers<Output[]>()
+
+const promises = new Array<Promise<void>>()
 
 for (const entrypoint of entrypoints) {
+  const exitpoint = path.join("./dist", path.relative(ancestor, entrypoint))
+
   const window = new Window({ url: "file://" + path.resolve(entrypoint) });
-
-  windows.set(entrypoint, window)
-
   const document = new window.DOMParser().parseFromString(readFileSync(entrypoint, "utf8"), "text/html")
 
-  documents.set(entrypoint, document)
-
-  for (const element of document.querySelectorAll("script[type=bundle]")) {
-    const script = element as unknown as HTMLScriptElement
+  const include = async function (script: HTMLScriptElement) {
+    if (script.type !== "bundle")
+      return
 
     if (script.src) {
       const url = new URL(script.src)
 
-      if (url.protocol === "file:") {
-        scripts.push(url.pathname)
-      } else {
-        // TODO
+      if (url.protocol !== "file:")
+        throw new Error("Unsupported protocol")
+
+      const nonce = crypto.randomUUID().slice(0, 8)
+      const input = path.join(path.dirname(url.pathname), `.${nonce}.${path.basename(url.pathname)}`)
+
+      copyFileSync(url.pathname, input)
+
+      inputs.push(input)
+
+      try {
+        const outputs = await resolveOnOutputs.promise
+        const output = outputs.find(x => x.path.includes(nonce))
+
+        if (output == null)
+          throw new Error("Output not found")
+
+        const absolute = output.path.replaceAll(`.${nonce}.`, "")
+        const relative = path.relative(path.dirname(exitpoint), absolute)
+
+        script.type = "module"
+        script.src = relative.startsWith(".") ? relative : "./" + relative
+
+        mkdirSync(path.dirname(absolute), { recursive: true })
+
+        writeFileSync(absolute, output.text)
+      } finally {
+        rmSync(input)
       }
     } else {
       // TODO
     }
   }
+
+  for (const script of document.scripts)
+    promises.push(include(script))
+
+  Promise.all(promises).then(() => {
+    mkdirSync(path.dirname(exitpoint), { recursive: true })
+
+    writeFileSync(exitpoint, document.documentElement.outerHTML)
+  }).catch(console.error)
+
+  // NOOP
 }
 
 export async function* bundle(scripts: string[]) {
@@ -94,29 +148,15 @@ export async function* bundle(scripts: string[]) {
 
 const outputs = new Array<{ path: string, text: string, hash: string }>()
 
-for await (const output of bundle(scripts)) {
-  console.log(output.path)
+for await (const output of bundle(inputs)) {
+  mkdirSync(path.dirname(output.path), { recursive: true })
+
+  if (path.basename(output.path).startsWith("chunk"))
+    writeFileSync(output.path, output.text)
 
   outputs.push(output)
 }
 
-for (const entrypoint of entrypoints) {
-  const window = windows.get(entrypoint)!
-  const document = documents.get(entrypoint)!
+resolveOnOutputs.resolve(outputs)
 
-  for (const element of document.querySelectorAll("script[type=bundle]")) {
-    const script = element as unknown as HTMLScriptElement
-
-    if (script.src) {
-      const url = new URL(script.src)
-
-      if (url.protocol === "file:") {
-        // const sibling = path.join(path.dirname(url.pathname), `${path.basename(url.pathname, ".ts")}.js`)
-      } else {
-        // TODO
-      }
-    } else {
-      // TODO
-    }
-  }
-}
+await Promise.all(promises)

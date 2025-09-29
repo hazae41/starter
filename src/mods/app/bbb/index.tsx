@@ -1,3 +1,4 @@
+import { log } from "../../../libs/ccc/mod.ts";
 /// <reference lib="dom" />
 
 import { Rewind } from "@hazae41/rewind";
@@ -23,3 +24,4 @@ if (root == null)
 await new Rewind(document).compile()
 
 createRoot(root).render(<App />)
+log("bbb")
