@@ -1,49 +1,71 @@
-import { basename, dirname, extname, normalize, relative } from "node:path";
+import esbuild from "esbuild";
+import { Document, Window } from 'happy-dom';
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
+type Script = Inline | External
+
+interface Inline {
+  readonly type: "inline"
+  readonly text: string
+}
+
+interface External {
+  readonly type: "external"
+  readonly file: string
+}
 
 await (async () => {
   const entrypoints = ["./src/mods/app/index.html"]
 
-  const bundle = await Deno.bundle({ entrypoints, outputDir: "./out", write: false });
+  const windows = new Map<string, Window>()
+  const documents = new Map<string, Document>()
 
-  if (bundle.outputFiles == null)
-    throw new Error("No output files found")
+  const scripts = new Array<string>()
 
-  const files = new Set<{ path: string; text: string }>()
+  for (const entrypoint of entrypoints) {
+    const window = new Window({ url: "file://" + path.resolve(entrypoint) });
 
-  for (const file of bundle.outputFiles)
-    files.add({ path: file.path, text: file.text() })
+    windows.set(entrypoint, window)
 
-  for (const referee of files) {
-    const type = extname(referee.path)
-    const name = basename(referee.path, type)
+    const document = new window.DOMParser().parseFromString(readFileSync(entrypoint, "utf8"), "text/html")
 
-    const original = name + type
-    const replaced = name.split("-")[0] + type
+    documents.set(entrypoint, document)
 
-    for (const referer of files) {
-      if (referer.path === referee.path)
-        continue
-      const target = normalize(relative(dirname(referer.path), referee.path))
-      const needle = `"${target.startsWith(".") ? target : `./${target}`}"`
+    for (const element of document.querySelectorAll("script[type=bundle]")) {
+      const script = element as unknown as HTMLScriptElement
 
-      if (!referer.text.includes(needle))
-        continue
-      referer.text = referer.text.replaceAll(needle, needle.replaceAll(original, replaced))
+      if (script.src) {
+        const url = new URL(script.src)
+
+        if (url.protocol === "file:") {
+          scripts.push(url.pathname)
+        } else {
+          // TODO
+        }
+      } else {
+        // TODO
+      }
     }
-
-    referee.path = referee.path.replaceAll(original, replaced)
   }
 
-  try {
-    Deno.removeSync("./out", { recursive: true })
-  } catch { /* NOOP */ }
+  if (typeof Deno !== "undefined") {
+    const result = await Deno.bundle({
+      entrypoints: scripts,
+      format: "esm",
+      outputDir: "./dist"
+    })
 
-  for (const file of files) {
-    Deno.mkdirSync(dirname(file.path), { recursive: true })
+    console.log(result)
+  } else {
+    const result = await esbuild.build({
+      entryPoints: scripts,
+      bundle: true,
+      format: "esm",
+      outdir: "./dist",
+    })
 
-    Deno.writeTextFileSync(file.path, file.text)
-
-    continue
+    console.log(result)
   }
 })()
 
