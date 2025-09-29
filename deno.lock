@@ -247,6 +247,8 @@
         "npm:@hazae41/tscousin@^1.0.9",
         "npm:esbuild@~0.25.10",
         "npm:happy-dom@^19.0.1",
+        "npm:react-dom@^19.1.1",
+        "npm:react@^19.1.1",
         "npm:tailwindcss@^4.1.13",
         "npm:typescript@^5.9.2"
       ]
