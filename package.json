@@ -1,0 +1,35 @@
+{
+  "type": "module",
+  "name": "@hazae41/starter",
+  "description": "Just build a cool website",
+  "version": "1.0.23",
+  "repository": "github:hazae41/starter",
+  "author": "hazae41",
+  "scripts": {
+    "examine": "deno lint ./src && deno check ./src && deno test ./src",
+    "prepare": "rm -rf ./out && tsc && tscousin",
+    "version": "deno -RW ./!vsync.ts && git add deno.json",
+    "synchro": "deno -RW ./!dsync.ts && deno install"
+  },
+  "files": [
+    "./out"
+  ],
+  "exports": {
+    ".": {
+      "types": "./out/mod.d.ts",
+      "import": "./out/mod.js"
+    }
+  },
+  "dependencies": {
+    "@hazae41/rewind": "^1.0.23",
+    "esbuild": "^0.25.10",
+    "happy-dom": "^19.0.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "@hazae41/tscousin": "^1.0.9",
+    "typescript": "^5.9.2"
+  }
+}

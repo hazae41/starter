@@ -2,13 +2,7 @@
   "imports": {
     "@/": "./src/",
     "@hazae41/rewind": "jsr:@hazae41/rewind@^1.0.23",
-    "@types/react": "npm:@types/react@^19.1.14",
-    "@types/react-dom": "npm:@types/react-dom@^19.1.9",
-    "esbuild": "npm:esbuild@^0.25.10",
-    "happy-dom": "npm:happy-dom@^18.0.1",
-    "react": "npm:react@^19.1.1",
-    "react-dom": "npm:react-dom@^19.1.1",
-    "tailwindcss": "npm:tailwindcss@^4.1.13"
+    "@hazae41/tscousin": "jsr:@hazae41/tscousin@^1.0.9"
   },
   "compilerOptions": {
     "jsx": "react-jsx"

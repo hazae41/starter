@@ -1,19 +1,7 @@
 import esbuild from "esbuild";
-import { Document, Window } from 'happy-dom';
+import { Document, Window } from "happy-dom";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-
-type Script = Inline | External
-
-interface Inline {
-  readonly type: "inline"
-  readonly text: string
-}
-
-interface External {
-  readonly type: "external"
-  readonly file: string
-}
 
 await (async () => {
   const entrypoints = ["./src/mods/app/index.html"]
