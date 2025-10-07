@@ -7,7 +7,6 @@ Start a cool webapp with React and Tailwind
 - Rendering made with `react` and `react-dom`
 - Styling made with `tailwindcss` via `@hazae41/rewind`
 - Bundling made with `esbuild` via `@hazae41/glace`
-- Serving made with `serve`
 
 ## Setup
 

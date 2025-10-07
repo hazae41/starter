@@ -8,8 +8,8 @@
   "scripts": {
     "examine": "deno lint ./src && deno check ./src && deno test ./src",
     "prepare": "glace ./src/mods/www --out=./out",
-    "produce": "glace ./src/mods/www --out=./out && serve ./out",
-    "develop": "glace ./src/mods/www --out=./out --dev --watch & serve ./out",
+    "produce": "glace ./src/mods/www --out=./out && deno -RN ./src/mods/server/bin.ts",
+    "develop": "glace ./src/mods/www --out=./out --dev --watch & deno -RN ./src/mods/server/bin.ts",
     "version": "deno -RW ./x.vsync.ts && git add deno.json",
     "synchro": "deno -RW ./x.dsync.ts && deno install"
   },
@@ -24,7 +24,6 @@
   "devDependencies": {
     "@hazae41/glace": "^1.0.1",
     "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.1",
-    "serve": "^14.2.5"
+    "@types/react-dom": "^19.2.1"
   }
 }
