@@ -13,7 +13,7 @@ Start a cool webapp with React and Tailwind
 Just clone this repository and start building
 
 ```bash
-git clone https://github.com/hazae41/starter.git && cd ./starter && rm -rf ./.git && git init
+git clone https://github.com/hazae41/starter.git && cd ./starter && rm -rf ./.git && git init && npm ci
 ```
 
 Don't forget to install Deno
