@@ -1,6 +1,6 @@
 # Starter
 
-Start a cool website with React and Tailwind
+Start a cool webapp with React and Tailwind
 
 ## Stack
 
