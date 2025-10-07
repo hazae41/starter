@@ -24,11 +24,21 @@ git clone https://github.com/hazae41/starter.git && cd ./starter && rm -rf ./.gi
 npm run develop
 ```
 
+```bash
+deno task develop
+```
+
+
 - Test
 
 ```bash
 npm run examine
 ```
+
+```bash
+deno task examine
+```
+
 
 - Build
 
@@ -36,8 +46,16 @@ npm run examine
 npm run prepare
 ```
 
+```bash
+deno task prepare
+```
+
 - Serve
 
 ```bash
 npm run produce
+```
+
+```bash
+deno task produce
 ```
