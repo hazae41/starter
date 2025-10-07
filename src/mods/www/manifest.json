@@ -1,0 +1,16 @@
+{
+  "name": "Starter",
+  "short_name": "Starter",
+  "description": "A cool webapp with React and Tailwind",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
