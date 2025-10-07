@@ -1,5 +1,0 @@
-@import "tailwindcss/index";
-
-.title {
-  @apply text-3xl font-bold underline;
-}
