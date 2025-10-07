@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@hazae41/starter",
-  "description": "Just build a cool website",
+  "description": "Start a cool website with React and Tailwind",
   "version": "1.0.0",
   "repository": "github:hazae41/starter",
   "author": "hazae41",

@@ -1,6 +1,6 @@
-# Hello world
+# Starter
 
-You can clone this repository to start building a cool website
+Start a cool website with React and Tailwind
 
 ## Stack
 
