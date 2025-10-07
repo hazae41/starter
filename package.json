@@ -2,7 +2,7 @@
   "type": "module",
   "name": "@hazae41/starter",
   "description": "Just build a cool website",
-  "version": "1.0.23",
+  "version": "1.0.0",
   "repository": "github:hazae41/starter",
   "author": "hazae41",
   "scripts": {
