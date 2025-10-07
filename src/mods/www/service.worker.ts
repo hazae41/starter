@@ -1,3 +1,3 @@
 /// <reference lib="webworker" />
 
-addEventListener("install", () => console.log("Hello world!"))
+addEventListener("install", () => console.log("Installed!"))
