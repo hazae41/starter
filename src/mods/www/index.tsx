@@ -19,6 +19,7 @@ function Page() {
   </div>
 }
 
+// @ts-ignore: process not found
 // deno-lint-ignore no-process-global
 if (process.env.PLATFORM === "browser") {
   await new Rewind(document).hydrateOrThrow().then(() => hydrateRoot(document.body, <Page />))
