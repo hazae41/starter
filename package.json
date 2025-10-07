@@ -8,6 +8,7 @@
   "scripts": {
     "examine": "deno lint ./src && deno check ./src && deno test ./src",
     "prepare": "glace ./src/mods/www --out=./out",
+    "produce": "glace ./src/mods/www --out=./out && serve ./out",
     "develop": "glace ./src/mods/www --out=./out --dev --watch & serve ./out",
     "version": "deno -RW ./x.vsync.ts && git add deno.json",
     "synchro": "deno -RW ./x.dsync.ts && deno install"

@@ -36,3 +36,9 @@ npm run examine
 ```bash
 npm run prepare
 ```
+
+- Serve
+
+```bash
+npm run produce
+```
