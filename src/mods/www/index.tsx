@@ -10,6 +10,10 @@ function Page() {
     log("Hello world")
   }, [])
 
+  useEffect(() => {
+    navigator.serviceWorker.register("/service.worker.js", { type: "module" }).catch(console.error)
+  }, [])
+
   return <div className="text-2xl font-sans">
     Hello world
   </div>
