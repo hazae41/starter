@@ -9,10 +9,30 @@ Start a cool webapp with React and Tailwind
 - Bundling made with `esbuild` via `@hazae41/glace`
 - Serving made with `serve`
 
-## Usage
+## Setup
 
 Just clone this repository and start building
 
 ```bash
 git clone https://github.com/hazae41/starter.git && cd ./starter && rm -rf ./.git && git init
+```
+
+## Usage
+
+- Develop
+
+```bash
+npm run develop
+```
+
+- Test
+
+```bash
+npm run examine
+```
+
+- Build
+
+```bash
+npm run prepare
 ```
