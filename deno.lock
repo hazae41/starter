@@ -1,13 +1,13 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@hazae41/glace@^1.0.6": "1.0.6",
-    "jsr:@hazae41/immutable@^2.0.3": "2.0.3",
+    "jsr:@hazae41/glace@^1.0.8": "1.0.8",
+    "jsr:@hazae41/immutable@^2.0.7": "2.0.7",
     "jsr:@hazae41/mutex@3": "3.0.0",
     "jsr:@hazae41/result-and-option@^2.0.8": "2.0.8",
     "jsr:@hazae41/rewind@^2.3.4": "2.3.4",
-    "npm:@hazae41/glace@^1.0.6": "1.0.6",
-    "npm:@hazae41/immutable@^2.0.3": "2.0.3",
+    "npm:@hazae41/glace@^1.0.8": "1.0.8",
+    "npm:@hazae41/immutable@^2.0.7": "2.0.7",
     "npm:@hazae41/rewind@^2.3.4": "2.3.4",
     "npm:@types/node@*": "24.2.0",
     "npm:@types/react-dom@^19.2.2": "19.2.2_@types+react@19.2.2",
@@ -19,16 +19,16 @@
     "npm:tailwindcss@^4.1.13": "4.1.14"
   },
   "jsr": {
-    "@hazae41/glace@1.0.6": {
-      "integrity": "f5d793dbd253450c6aa6e99c06f23b7c7e696704d7b839821d846e4dfb2a1dee",
+    "@hazae41/glace@1.0.8": {
+      "integrity": "9c47b6e92f8425986abacb2614b2655100fca93dce58fbc18f8004d096f7c9f5",
       "dependencies": [
         "jsr:@hazae41/mutex",
         "npm:esbuild",
         "npm:happy-dom"
       ]
     },
-    "@hazae41/immutable@2.0.3": {
-      "integrity": "6fe4443c27bd43aa32c5da63739db6e31acb3e6eaf09239b301629473143882e",
+    "@hazae41/immutable@2.0.7": {
+      "integrity": "2030d7b6259236f25d338f1233ee46390a6735c63c3d7ce754113b4bc7bd3b87",
       "dependencies": [
         "jsr:@hazae41/result-and-option"
       ]
@@ -177,8 +177,8 @@
       "os": ["win32"],
       "cpu": ["x64"]
     },
-    "@hazae41/glace@1.0.6": {
-      "integrity": "sha512-UpM9EhxC86wKJT8cE72rXdK+u8c9GCapLxNx5Ph0oBj/E3QRiblkOYH3ghEH+DpGza/ho7qzK9dfWN7irhOBLg==",
+    "@hazae41/glace@1.0.8": {
+      "integrity": "sha512-98vGN4Ig6RjPR5qrH0bvSeI7gKrxguqxF84JOuNY46z15z+mqFdMZgYBzY6604teysu/rySmbxMrALDbjAvtSA==",
       "dependencies": [
         "@hazae41/mutex",
         "esbuild",
@@ -186,8 +186,8 @@
       ],
       "bin": true
     },
-    "@hazae41/immutable@2.0.3": {
-      "integrity": "sha512-V1+Fzy9cp6hOnypZA8RdAJfJiLSTfbfqYrBKZo/g6KpAipMKBV2UDlrL53/tPLW8/EHHcyrFHLPj09gn7hplJw==",
+    "@hazae41/immutable@2.0.7": {
+      "integrity": "sha512-pSSEfD5q+lwmQnwTqzhLWq02Shk14k4MQPcg0vY1T6bAfRwHAAshLwY8/fjQu3hKCZ5NEcojmrGlz1TFFc0y/Q==",
       "dependencies": [
         "@hazae41/result-and-option"
       ]
@@ -303,14 +303,14 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@hazae41/glace@^1.0.6",
-      "jsr:@hazae41/immutable@^2.0.3",
+      "jsr:@hazae41/glace@^1.0.8",
+      "jsr:@hazae41/immutable@^2.0.7",
       "jsr:@hazae41/rewind@^2.3.4"
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@hazae41/glace@^1.0.6",
-        "npm:@hazae41/immutable@^2.0.3",
+        "npm:@hazae41/glace@^1.0.8",
+        "npm:@hazae41/immutable@^2.0.7",
         "npm:@hazae41/rewind@^2.3.4",
         "npm:@types/react-dom@^19.2.2",
         "npm:@types/react@^19.2.2",

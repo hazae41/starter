@@ -1,4 +1,5 @@
 import { log } from "@/libs/log/mod.ts";
+import { Immutable } from "@hazae41/immutable";
 import { Rewind } from "@hazae41/rewind";
 import React, { ReactNode, useEffect } from "react";
 import { hydrateRoot } from "react-dom/client";
@@ -11,22 +12,13 @@ declare global {
   }
 }
 
-async function register(options: RegistrationOptions = {}) {
-  const { scope, type } = options
-
-  const manifest = await fetch("/manifest.json", { cache: "reload" }).then(r => r.ok ? r.bytes() : Promise.reject(r))
-  const checksum = await crypto.subtle.digest("SHA-256", manifest).then(a => new Uint8Array(a).toHex().slice(0, 8))
-
-  await navigator.serviceWorker.register(`/service.worker.js?version=${checksum}`, { type: "module", updateViaCache: "all" });
-}
-
 function Page() {
   useEffect(() => {
     log("Hello world")
   }, [])
 
   useEffect(() => {
-    register().catch(console.error)
+    Immutable.register("/service.worker.js", { type: "module" }).then(console.log).catch(console.error)
   }, [])
 
   return <div className="text-2xl font-sans">

@@ -1,19 +1,50 @@
 /// <reference lib="webworker" />
 
+import { Immutable } from "@hazae41/immutable"
+
 declare const self: ServiceWorkerGlobalScope
 
-console.log("hello world from service worker");
-
-self.addEventListener("install", (event) => {
-  console.log("install event", event)
-  event.waitUntil(self.skipWaiting());
+self.addEventListener("install", () => {
+  /**
+   * Auto-activate as the update was already accepted
+   */
+  self.skipWaiting()
 })
 
-self.addEventListener("activate", (event) => {
-  console.log("activate event", event)
-  event.waitUntil(self.clients.claim());
-})
+/**
+ * Declare global template
+ */
+declare const FILES: [string, string][]
 
-self.addEventListener("fetch", (event) => {
-  console.log("fetch event", event.request.url);
-});
+/**
+ * Only cache on production
+ */
+if (process.env.NODE_ENV === "production") {
+  const cache = new Immutable.Cache(new Map(FILES))
+
+  self.addEventListener("activate", (event) => {
+    /**
+     * Uncache previous version
+     */
+    event.waitUntil(cache.uncache())
+
+    /**
+     * Precache current version
+     */
+    event.waitUntil(cache.precache())
+  })
+
+  /**
+   * Respond with cache
+   */
+  self.addEventListener("fetch", (event) => {
+    const response = cache.handle(event.request)
+
+    if (response == null)
+      return
+
+    event.respondWith(response)
+  })
+}
+
+self.addEventListener("push", console.log)
