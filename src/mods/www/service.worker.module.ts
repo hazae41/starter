@@ -7,7 +7,7 @@ console.log("hello world from service worker");
 
 events.oninstall = (event) => {
   console.log("install event", event)
-  event.waitUntil(self.skipWaiting());
+  event.waitUntil(install());
 }
 
 events.onactivate = (event) => {
@@ -15,8 +15,12 @@ events.onactivate = (event) => {
   event.waitUntil(self.clients.claim());
 }
 
+async function respond(request: Request) {
+  return new Response("Hello from eval service worker!")
+}
+
 events.onfetch = (event) => {
   console.log("fetch event", event.request.url);
 
-  event.respondWith(new Response("Hello from eval service worker!"));
+  event.respondWith(respond(event.request));
 };

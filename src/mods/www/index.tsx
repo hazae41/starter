@@ -5,13 +5,28 @@ import { hydrateRoot } from "react-dom/client";
 
 React;
 
+declare global {
+  interface Uint8Array {
+    toHex(): string;
+  }
+}
+
+async function register(options: RegistrationOptions = {}) {
+  const { scope, type } = options
+
+  const manifest = await fetch("/manifest.json", { cache: "reload" }).then(r => r.ok ? r.bytes() : Promise.reject(r))
+  const checksum = await crypto.subtle.digest("SHA-256", manifest).then(a => new Uint8Array(a).toHex())
+
+  await navigator.serviceWorker.register(`/service.worker.js?version=${checksum}`, { type: "module", updateViaCache: "all" });
+}
+
 function Page() {
   useEffect(() => {
     log("Hello world")
   }, [])
 
   useEffect(() => {
-    navigator.serviceWorker.register("/service.worker.js", { type: "module" }).catch(console.error)
+    register().catch(console.error)
   }, [])
 
   return <div className="text-2xl font-sans">

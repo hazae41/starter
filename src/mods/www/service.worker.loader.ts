@@ -11,14 +11,36 @@ self.addEventListener("activate", (event) => event.waitUntil(loaded.promise.then
 self.addEventListener("fetch", (event) => event.waitUntil(loaded.promise.then(() => events.onfetch?.(event))))
 self.addEventListener("message", (event) => event.waitUntil(loaded.promise.then(() => events.onmessage?.(event))))
 
+const cache = await caches.open("/")
+
+async function install() {
+  const manifest = await get("/manifest.json").then(r => r.text()).then(JSON.parse)
+
+  for (const url in manifest.files) {
+    // 
+  }
+
+  await self.skipWaiting()
+}
+
+async function get(request: string) {
+  const cached = await cache.match(request)
+
+  if (cached != null)
+    return cached
+
+  const fetched = await fetch(request)
+
+  if (!fetched.ok)
+    throw new Error(`Failed to fetch ${request}`, { cause: fetched })
+
+  cache.put(request, fetched.clone())
+
+  return fetched
+}
+
 async function load() {
-  const request = new Request("/service.worker.module.js");
-  const response = await caches.match(request);
-
-  if (!response?.ok)
-    return
-
-  const esm = await response.text()
+  const esm = await get("/service.worker.module.js").then(r => r.text());
 
   const lines = esm.split(/[;\n]/)
 
