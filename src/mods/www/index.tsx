@@ -15,7 +15,7 @@ async function register(options: RegistrationOptions = {}) {
   const { scope, type } = options
 
   const manifest = await fetch("/manifest.json", { cache: "reload" }).then(r => r.ok ? r.bytes() : Promise.reject(r))
-  const checksum = await crypto.subtle.digest("SHA-256", manifest).then(a => new Uint8Array(a).toHex())
+  const checksum = await crypto.subtle.digest("SHA-256", manifest).then(a => new Uint8Array(a).toHex().slice(0, 8))
 
   await navigator.serviceWorker.register(`/service.worker.js?version=${checksum}`, { type: "module", updateViaCache: "all" });
 }
