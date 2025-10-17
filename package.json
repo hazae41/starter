@@ -17,12 +17,13 @@
     "./out"
   ],
   "dependencies": {
+    "@hazae41/immutable": "^2.0.3",
     "@hazae41/rewind": "^2.3.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@hazae41/glace": "^1.0.5",
+    "@hazae41/glace": "^1.0.6",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2"
   }

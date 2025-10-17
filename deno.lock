@@ -1,10 +1,13 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@hazae41/glace@^1.0.4": "1.0.4",
+    "jsr:@hazae41/glace@^1.0.6": "1.0.6",
+    "jsr:@hazae41/immutable@^2.0.3": "2.0.3",
     "jsr:@hazae41/mutex@3": "3.0.0",
+    "jsr:@hazae41/result-and-option@^2.0.8": "2.0.8",
     "jsr:@hazae41/rewind@^2.3.4": "2.3.4",
-    "npm:@hazae41/glace@^1.0.4": "1.0.4",
+    "npm:@hazae41/glace@^1.0.6": "1.0.6",
+    "npm:@hazae41/immutable@^2.0.3": "2.0.3",
     "npm:@hazae41/rewind@^2.3.4": "2.3.4",
     "npm:@types/node@*": "24.2.0",
     "npm:@types/react-dom@^19.2.2": "19.2.2_@types+react@19.2.2",
@@ -16,16 +19,25 @@
     "npm:tailwindcss@^4.1.13": "4.1.14"
   },
   "jsr": {
-    "@hazae41/glace@1.0.4": {
-      "integrity": "1a5997cc986b0cab089b07096b2303d64ee252b2bab085a5ebed9fdd0588d7dc",
+    "@hazae41/glace@1.0.6": {
+      "integrity": "f5d793dbd253450c6aa6e99c06f23b7c7e696704d7b839821d846e4dfb2a1dee",
       "dependencies": [
         "jsr:@hazae41/mutex",
         "npm:esbuild",
         "npm:happy-dom"
       ]
     },
+    "@hazae41/immutable@2.0.3": {
+      "integrity": "6fe4443c27bd43aa32c5da63739db6e31acb3e6eaf09239b301629473143882e",
+      "dependencies": [
+        "jsr:@hazae41/result-and-option"
+      ]
+    },
     "@hazae41/mutex@3.0.0": {
       "integrity": "bf420c6c64212fb40575ac1052aa3552eb32b98179d3168b85919d3c5ab79d7b"
+    },
+    "@hazae41/result-and-option@2.0.8": {
+      "integrity": "c6912e8b04a88ad434c7c4859588db6147a65bc4ce294e4411d6d47bdcdea1e3"
     },
     "@hazae41/rewind@2.3.4": {
       "integrity": "93da3f7a1eaf4801103ddc75160ae179b5043a18678e6253edd10b6e7b4610b4",
@@ -165,8 +177,8 @@
       "os": ["win32"],
       "cpu": ["x64"]
     },
-    "@hazae41/glace@1.0.4": {
-      "integrity": "sha512-93jhtFwo1Fheyj8oOqcw78iibpAINa0KNtdq/r/VAyyjuGZDmSt5UKz0QCpd2imD/2E8H11gCmZqK0jFGKfl2A==",
+    "@hazae41/glace@1.0.6": {
+      "integrity": "sha512-UpM9EhxC86wKJT8cE72rXdK+u8c9GCapLxNx5Ph0oBj/E3QRiblkOYH3ghEH+DpGza/ho7qzK9dfWN7irhOBLg==",
       "dependencies": [
         "@hazae41/mutex",
         "esbuild",
@@ -174,8 +186,17 @@
       ],
       "bin": true
     },
+    "@hazae41/immutable@2.0.3": {
+      "integrity": "sha512-V1+Fzy9cp6hOnypZA8RdAJfJiLSTfbfqYrBKZo/g6KpAipMKBV2UDlrL53/tPLW8/EHHcyrFHLPj09gn7hplJw==",
+      "dependencies": [
+        "@hazae41/result-and-option"
+      ]
+    },
     "@hazae41/mutex@3.0.0": {
       "integrity": "sha512-UDJTtT6xa9qnH0Ia1EEq1yIn0mvNNd6ajXQoCGqIScg3kEk+kMkTlahCFhOjTepNZa0X0jMlzKyj96gGLpXswg=="
+    },
+    "@hazae41/result-and-option@2.0.8": {
+      "integrity": "sha512-Qaf+3tz5aWywy3E7LvNh5N+ClZRiyVor2z54viSlMDBX3f2nMujYv4RS2QWDCnEr3Ylu4Rf4GuC52n7kMTWKow=="
     },
     "@hazae41/rewind@2.3.4": {
       "integrity": "sha512-JrTczrQp+C2Os4yIy37/gsaNGWhpQVWa19kLlVplTPwleQQXAJZp8sSiRJy5ieUwbKjPDnTMbARtAg3PtDAHNA==",
@@ -183,8 +204,8 @@
         "tailwindcss"
       ]
     },
-    "@types/node@20.19.21": {
-      "integrity": "sha512-CsGG2P3I5y48RPMfprQGfy4JPRZ6csfC3ltBZSRItG3ngggmNY/qs2uZKp4p9VbrpqNNSMzUZNFZKzgOGnd/VA==",
+    "@types/node@20.19.22": {
+      "integrity": "sha512-hRnu+5qggKDSyWHlnmThnUqg62l29Aj/6vcYgUaSFL9oc7DVjeWEQN3PRgdSc6F8d9QRMWkf36CLMch1Do/+RQ==",
       "dependencies": [
         "undici-types@6.21.0"
       ]
@@ -249,7 +270,7 @@
     "happy-dom@19.0.2": {
       "integrity": "sha512-831CLbgDyjRbd2lApHZFsBDe56onuFcjsCBPodzWpzedTpeDr8CGZjs7iEIdNW1DVwSFRecfwzLpVyGBPamwGA==",
       "dependencies": [
-        "@types/node@20.19.21",
+        "@types/node@20.19.22",
         "@types/whatwg-mimetype",
         "whatwg-mimetype"
       ]
@@ -282,12 +303,14 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@hazae41/glace@^1.0.4",
+      "jsr:@hazae41/glace@^1.0.6",
+      "jsr:@hazae41/immutable@^2.0.3",
       "jsr:@hazae41/rewind@^2.3.4"
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@hazae41/glace@^1.0.4",
+        "npm:@hazae41/glace@^1.0.6",
+        "npm:@hazae41/immutable@^2.0.3",
         "npm:@hazae41/rewind@^2.3.4",
         "npm:@types/react-dom@^19.2.2",
         "npm:@types/react@^19.2.2",
