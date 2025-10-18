@@ -14,7 +14,7 @@ async function upgrade() {
 
   if (update == null)
     return registration
-  if (!confirm(`An update of ${location.origin} is available, do you want to update now?`))
+  if (!confirm(`An update of ${location.origin} is available. Do you want to update now?`))
     return registration
 
   return await update()
