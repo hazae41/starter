@@ -4,32 +4,63 @@ import { createReadStream, statSync } from "node:fs";
 import http from "node:http";
 import path from "node:path";
 
+const headers = new Headers({
+  /**
+   * Recommended to be embedded with extra security enforcement
+   */
+  "Allow-CSP-from": "*",
+
+  /**
+   * Recommended to allow external webapps or embedders to fetch manifest.json and HTML pages metadata
+   */
+  "Access-Control-Allow-Origin": "*",
+
+  /**
+   * Recommended to get immutable service worker, but suggested for everything else too
+   */
+  "Cache-Control": "public, max-age=31536000, immutable",
+})
+
+/**
+ * Add your own file types here
+ */
 const mimes: Record<string, string> = {
   ".html": "text/html",
   ".js": "application/javascript",
-  ".css": "text/css"
+  ".css": "text/css",
+  ".json": "application/json",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".svg": "image/svg+xml",
+  ".ico": "image/x-icon",
+  ".wasm": "application/wasm"
 }
 
 const port = 3000;
 const root = "./out";
 
 http.createServer((req, res) => {
-  console.log(req.url)
+  console.log(req.url!)
 
-  const wanted = path.join(root, req.url!)
+  const url = new URL(req.url!, "http://localhost")
+
+  res.setHeaders(headers)
+
+  const wanted = path.join(root, url.pathname)
 
   let served = wanted
 
   if (wanted.endsWith("/index.html")) {
     res.statusCode = 302;
-    res.setHeader("Location", req.url!.slice(0, -"index.html".length));
+    res.setHeader("Location", url.pathname.slice(0, -"index.html".length));
     res.end();
     return
   }
 
   if (wanted.endsWith(".html")) {
     res.statusCode = 302;
-    res.setHeader("Location", req.url!.slice(0, -".html".length));
+    res.setHeader("Location", url.pathname.slice(0, -".html".length));
     res.end();
     return
   }
@@ -43,14 +74,14 @@ http.createServer((req, res) => {
 
     if (statSync(served = wanted.slice(0, -1), { throwIfNoEntry: false })?.isFile()) {
       res.statusCode = 302;
-      res.setHeader("Location", req.url!.slice(0, -1));
+      res.setHeader("Location", url.pathname.slice(0, -1));
       res.end();
       return
     }
 
     if (statSync(served = wanted.slice(0, -1) + ".html", { throwIfNoEntry: false })?.isFile()) {
       res.statusCode = 302;
-      res.setHeader("Location", req.url!.slice(0, -1));
+      res.setHeader("Location", url.pathname.slice(0, -1));
       res.end();
       return
     }
@@ -74,7 +105,7 @@ http.createServer((req, res) => {
 
   if (statSync(served = wanted + "/index.html", { throwIfNoEntry: false })?.isFile()) {
     res.statusCode = 302;
-    res.setHeader("Location", req.url! + "/");
+    res.setHeader("Location", url.pathname + "/");
     res.end();
     return
   }

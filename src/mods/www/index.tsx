@@ -7,13 +7,14 @@ import { hydrateRoot } from "react-dom/client";
 React;
 
 async function upgrade() {
-  navigator.serviceWorker.addEventListener("controllerchange", () => location.reload())
+  if (navigator.serviceWorker.controller != null)
+    navigator.serviceWorker.addEventListener("controllerchange", () => location.reload())
 
   const { registration, update } = await immutable.serviceWorker.register("/service.worker.js", { type: "module", scope: "/", updateViaCache: "all" })
 
   if (update == null)
     return registration
-  if (!confirm(`An update of ${location.origin} is available. Do you want to update now?`))
+  if (!confirm(`An update of ${location.origin} is available, do you want to update now?`))
     return registration
 
   return await update()
