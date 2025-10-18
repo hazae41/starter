@@ -29,7 +29,7 @@ function Page() {
   }, [])
 
   return <div className="text-2xl font-sans">
-    Hello world!
+    Hello world
   </div>
 }
 
