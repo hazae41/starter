@@ -1,15 +1,22 @@
 import { log } from "@/libs/log/mod.ts";
-import { Immutable } from "@hazae41/immutable";
+import { immutable } from "@hazae41/immutable";
 import { Rewind } from "@hazae41/rewind";
 import React, { ReactNode, useEffect } from "react";
 import { hydrateRoot } from "react-dom/client";
 
 React;
 
-declare global {
-  interface Uint8Array {
-    toHex(): string;
-  }
+async function upgrade() {
+  navigator.serviceWorker.addEventListener("controllerchange", () => location.reload())
+
+  const { registration, update } = await immutable.serviceWorker.register("/service.worker.js", { type: "module", scope: "/", updateViaCache: "all" })
+
+  if (update == null)
+    return registration
+  if (!confirm(`An update of ${location.origin} is available. Do you want to update now?`))
+    return registration
+
+  return await update()
 }
 
 function Page() {
@@ -18,11 +25,11 @@ function Page() {
   }, [])
 
   useEffect(() => {
-    Immutable.register("/service.worker.js", { type: "module" }).then(console.log).catch(console.error)
+    upgrade().then(console.log).catch(console.error)
   }, [])
 
   return <div className="text-2xl font-sans">
-    Hello world
+    Hello world!
   </div>
 }
 

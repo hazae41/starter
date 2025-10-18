@@ -1,15 +1,8 @@
 /// <reference lib="webworker" />
 
-import { Immutable } from "@hazae41/immutable"
+import { immutable } from "@hazae41/immutable"
 
 declare const self: ServiceWorkerGlobalScope
-
-self.addEventListener("install", () => {
-  /**
-   * Auto-activate as the update was already accepted
-   */
-  self.skipWaiting()
-})
 
 /**
  * Declare global template
@@ -19,19 +12,23 @@ declare const FILES: [string, string][]
 /**
  * Only cache on production
  */
+// @ts-ignore: process not found
+// deno-lint-ignore no-process-global
 if (process.env.NODE_ENV === "production") {
-  const cache = new Immutable.Cache(new Map(FILES))
+  const cache = new immutable.cache.Cache(new Map(FILES))
+
+  self.addEventListener("install", (event) => {
+    /**
+     * Precache new version and auto-activate as the update was already accepted
+     */
+    event.waitUntil(cache.precache().then(() => self.skipWaiting()))
+  })
 
   self.addEventListener("activate", (event) => {
     /**
-     * Uncache previous version
+     * Take control of all clients and uncache previous versions
      */
-    event.waitUntil(cache.uncache())
-
-    /**
-     * Precache current version
-     */
-    event.waitUntil(cache.precache())
+    event.waitUntil(self.clients.claim().then(() => cache.uncache()))
   })
 
   /**
@@ -47,4 +44,20 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 
-self.addEventListener("push", console.log)
+// @ts-ignore: process not found
+// deno-lint-ignore no-process-global
+if (process.env.NODE_ENV === "development") {
+  self.addEventListener("install", (event) => {
+    /**
+     * Auto-activate
+     */
+    event.waitUntil(self.skipWaiting())
+  })
+
+  self.addEventListener("activate", (event) => {
+    /**
+     * Take control of all clients
+     */
+    event.waitUntil(self.clients.claim())
+  })
+}

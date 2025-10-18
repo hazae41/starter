@@ -17,8 +17,8 @@
     "./out"
   ],
   "dependencies": {
-    "@hazae41/immutable": "^2.0.7",
-    "@hazae41/rewind": "^2.3.4",
+    "@hazae41/immutable": "^2.0.10",
+    "@hazae41/rewind": "^2.3.5",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
