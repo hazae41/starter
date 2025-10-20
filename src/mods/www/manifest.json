@@ -12,5 +12,8 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "background": {
+    "service_worker": "/service.worker.js"
+  }
 }
