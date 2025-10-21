@@ -11,6 +11,7 @@ Start a cool webapp with React and Tailwind
 - Built for Deno but backward compatible with Node/Bun
 - Deploy it anywhere HTML/CSS/JS files can be stored
 - Builds are cross-platform cross-runtime reproducible
+- Immutably cached with a 1-year cached service worker
 
 ## Stack
 
