@@ -24,6 +24,26 @@ Clone this repository and start building
 git clone https://github.com/hazae41/starter.git && cd ./starter && rm -rf ./.git && git init
 ```
 
+### Vercel
+
+Just setup the build command
+
+```bash
+deno task examine && deno task prepack
+```
+
+The output directory
+
+```path
+./out
+```
+
+The install command
+
+```bash
+npm install -g deno
+```
+
 ## Usage
 
 - Develop
