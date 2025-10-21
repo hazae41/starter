@@ -12,16 +12,24 @@ Start a cool webapp with React and Tailwind
 
 ## Setup
 
+### Development
+
 Install Deno
 
 ```bash
 npm install -g deno
 ```
 
-Clone this repository and start building
+Clone this repository
 
 ```bash
 git clone https://github.com/hazae41/starter.git && cd ./starter && rm -rf ./.git && git init
+```
+
+Start building
+
+```bash
+deno task develop
 ```
 
 ### Vercel
