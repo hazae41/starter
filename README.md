@@ -49,7 +49,7 @@ The output directory
 The install command
 
 ```bash
-npm install -g deno
+npm install -g deno && deno install
 ```
 
 ## Usage
