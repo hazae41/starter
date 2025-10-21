@@ -2,6 +2,16 @@
 
 Start a cool webapp with React and Tailwind
 
+## Features
+
+- Built on web standards and fundamentals
+- Works with any client-side and/or static-side library (e.g. React, jQuery)
+- Focused on security and simplicity without degrading performances
+- Supply-chain hardened with the bare minimum dependencies
+- Built for Deno but backward compatible with Node/Bun
+- Deploy it anywhere HTML/CSS/JS files can be stored
+- Builds are cross-platform cross-runtime reproducible
+
 ## Stack
 
 - `deno` for the runtime
