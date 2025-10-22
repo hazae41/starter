@@ -37,7 +37,13 @@ Clone this repository
 git clone https://github.com/hazae41/starter.git && cd ./starter && rm -rf ./.git && git init
 ```
 
-Start building
+Install
+
+```bash
+deno install
+```
+
+Develop
 
 ```bash
 deno task develop
