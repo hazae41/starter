@@ -96,3 +96,9 @@ deno task prepack
 ```bash
 deno task produce
 ```
+
+- Install new package
+
+```bash
+npm install [-D] <package>
+```
