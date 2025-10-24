@@ -1,5 +1,3 @@
-export type Localized = Record<Locale, string>
-
 export type Locale =
   | "en"
   | "zh"
@@ -32,43 +30,23 @@ export type Locale =
   | "sv"
   | "da"
 
-export const locales: Record<Locale, Locale> = {
-  en: "en",
-  zh: "zh",
-  hi: "hi",
-  es: "es",
-  ar: "ar",
-  fr: "fr",
-  de: "de",
-  ru: "ru",
-  pt: "pt",
-  ja: "ja",
-  pa: "pa",
-  bn: "bn",
-  id: "id",
-  ur: "ur",
-  ms: "ms",
-  it: "it",
-  tr: "tr",
-  ta: "ta",
-  te: "te",
-  ko: "ko",
-  vi: "vi",
-  pl: "pl",
-  ro: "ro",
-  nl: "nl",
-  el: "el",
-  th: "th",
-  cs: "cs",
-  hu: "hu",
-  sv: "sv",
-  da: "da",
-} as const
+export type Localized = string | Record<Locale, string>
 
-export class locale {
+export function delocalize(localized: Localized) {
+  if (typeof localized === "string")
+    return localized
 
-  static get current(): string {
-    return locales[document.documentElement.lang] || locales[navigator.language.split("-")[0]] || "en"
+  if (localized[document.documentElement.lang] != null)
+    return localized[document.documentElement.lang]
+
+  for (const language of navigator.languages) {
+    const locale = language.split("-")[0]
+
+    if (localized[locale] != null)
+      return localized[locale]
+
+    continue
   }
 
+  return localized["en"]
 }

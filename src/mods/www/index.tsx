@@ -1,4 +1,4 @@
-import { locale, Localized } from "@/libs/locale/mod.ts";
+import { delocalize, Localized } from "@/libs/locale/mod.ts";
 import { immutable } from "@hazae41/immutable";
 import { Rewind } from "@hazae41/rewind";
 import React, { ReactNode, useEffect, useState } from "react";
@@ -80,7 +80,7 @@ async function upgrade() {
 
   if (update == null)
     return registration
-  if (!confirm(AnUpdateIsAvailable(location.origin)[locale.current]))
+  if (!confirm(delocalize(AnUpdateIsAvailable(location.origin))))
     return registration
 
   return await update()
@@ -101,7 +101,7 @@ function Page() {
     return null
 
   return <div className="text-2xl font-sans">
-    {HelloWorld[locale.current]}
+    {delocalize(HelloWorld)}
   </div>
 }
 
