@@ -17,7 +17,7 @@ Start a cool webapp with React and Tailwind
 
 - `deno` for the runtime
 - `react` and `react-dom` for rendering
-- `tailwindcss` via `@hazae41/rewind` for the styles
+- `tailwindcss` via `@hazae41/rewind` and `@hazae41/labase` for the styles
 - `esbuild` via `@hazae41/glace` for bundling
 - `@hazae41/immutable` for immutable caching
 

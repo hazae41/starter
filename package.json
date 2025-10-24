@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "@hazae41/immutable": "^2.0.15",
+    "@hazae41/labase": "^1.0.15",
     "@hazae41/rewind": "^2.3.12",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
