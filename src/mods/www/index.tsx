@@ -1,4 +1,5 @@
 import { delocalize, Localized } from "@/libs/locale/mod.ts";
+import { App } from "@/mods/app/mod.tsx";
 import { immutable } from "@hazae41/immutable";
 import { Rewind } from "@hazae41/rewind";
 import React, { ReactNode, useEffect, useState } from "react";
@@ -39,39 +40,6 @@ const AnUpdateIsAvailable = (origin: string) => ({
   da: `En opdatering af ${origin} er tilgængelig. Vil du opdatere nu?`,
 } satisfies Localized)
 
-const HelloWorld = {
-  en: "Hello world",
-  zh: "你好，世界",
-  hi: "नमस्ते दुनिया",
-  es: "Hola mundo",
-  ar: "مرحبا بالعالم",
-  fr: "Bonjour le monde",
-  de: "Hallo Welt",
-  ru: "Привет, мир",
-  pt: "Olá mundo",
-  ja: "こんにちは世界",
-  pa: "ਹੈਲੋ ਵਰਲਡ",
-  bn: "হ্যালো ওয়ার্ল্ড",
-  id: "Halo dunia",
-  ur: "ہیلو ورلڈ",
-  ms: "Hai dunia",
-  it: "Ciao mondo",
-  tr: "Merhaba dünya",
-  ta: "ஹலோ வேர்ல்ட்",
-  te: "హలో వరల్డ్",
-  ko: "안녕하세요 세계",
-  vi: "Xin chào thế giới",
-  pl: "Witaj świecie",
-  ro: "Salut lume",
-  nl: "Hallo wereld",
-  el: "Γειά σου κόσμε",
-  th: "สวัสดีชาวโลก",
-  cs: "Ahoj světe",
-  hu: "Helló világ",
-  sv: "Hej världen",
-  da: "Hej verden",
-} satisfies Localized
-
 async function upgrade() {
   if (navigator.serviceWorker.controller != null)
     navigator.serviceWorker.addEventListener("controllerchange", () => location.reload())
@@ -86,7 +54,7 @@ async function upgrade() {
   return await update()
 }
 
-function Page() {
+function Body() {
   const [client, setClient] = useState(false)
 
   useEffect(() => {
@@ -100,15 +68,13 @@ function Page() {
   if (!client && document.documentElement.lang === "null")
     return null
 
-  return <div className="text-2xl font-sans">
-    {delocalize(HelloWorld)}
-  </div>
+  return <App />
 }
 
 // @ts-ignore: process not found
 // deno-lint-ignore no-process-global
 if (process.env.PLATFORM === "browser") {
-  await new Rewind(document).hydrateOrThrow().then(() => hydrateRoot(document.body, <Page />))
+  await new Rewind(document).hydrateOrThrow().then(() => hydrateRoot(document.body, <Body />))
 } else {
   const params = new URLSearchParams(location.search)
 
@@ -132,7 +98,7 @@ if (process.env.PLATFORM === "browser") {
     return html
   }
 
-  document.body.innerHTML = await prerender(<Page />)
+  document.body.innerHTML = await prerender(<Body />)
 
   await new Rewind(document).prerenderOrThrow()
 }
