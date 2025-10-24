@@ -3,6 +3,7 @@
 import { createReadStream, statSync } from "node:fs";
 import http from "node:http";
 import path from "node:path";
+import process from "node:process";
 
 const headers = new Headers({
   /**
@@ -18,7 +19,7 @@ const headers = new Headers({
   /**
    * Recommended to get immutable service worker, but suggested for everything else too
    */
-  "Cache-Control": "public, max-age=31536000, immutable",
+  "Cache-Control": process.env.NODE_ENV === "production" ? "public, max-age=31536000, immutable" : "no-cache",
 })
 
 /**
