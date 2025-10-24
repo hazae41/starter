@@ -97,7 +97,7 @@ function Page() {
     upgrade().then(console.log).catch(console.error)
   }, [])
 
-  if (!client && locale.current !== document.documentElement.lang)
+  if (!client && document.documentElement.lang === "null")
     return null
 
   return <div className="text-2xl font-sans">
