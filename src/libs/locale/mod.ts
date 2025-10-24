@@ -64,6 +64,7 @@ export const locales: Record<Locale, Locale> = {
   sv: "sv",
   da: "da",
 } as const
+
 export class locale {
 
   static get current(): string {
