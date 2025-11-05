@@ -5,6 +5,8 @@ import http from "node:http";
 import path from "node:path";
 import process from "node:process";
 
+const dev = process.argv.slice(2).includes("--dev")
+
 const headers = new Headers({
   /**
    * Recommended to be embedded with extra security enforcement
@@ -19,7 +21,7 @@ const headers = new Headers({
   /**
    * Recommended to get immutable service worker, but suggested for everything else too
    */
-  "Cache-Control": process.env.NODE_ENV === "production" ? "public, max-age=31536000, immutable" : "no-cache",
+  "Cache-Control": dev ? "no-cache" : "public, max-age=31536000, immutable",
 })
 
 /**

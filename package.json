@@ -8,7 +8,7 @@
     "prepare": "deno -RW ./x.dsync.ts && deno install",
     "prepack": "glace ./src/mods/www --out=./out",
     "produce": "glace ./src/mods/www --out=./out --watch & deno -RNE ./src/mods/srv/bin.ts",
-    "develop": "glace ./src/mods/www --out=./out --dev --watch & deno -RNE ./src/mods/srv/bin.ts"
+    "develop": "glace ./src/mods/www --out=./out --dev --watch & deno -RNE ./src/mods/srv/bin.ts --dev"
   },
   "files": [
     "./out"
