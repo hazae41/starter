@@ -1,6 +1,6 @@
 # Starter
 
-Start a cool webapp with React and Tailwind
+Start a secure webapp with React and Tailwind
 
 ## Features
 
