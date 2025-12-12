@@ -1,11 +1,11 @@
 import React from "react";
-import { delocalize } from "../../libs/lang/mod.ts";
+import { Lang } from "../../libs/lang/mod.ts";
 
 React;
 
 export function App() {
   return <div className="text-2xl font-sans">
-    {delocalize({
+    {Lang.match({
       en: "Hello world",
       zh: "你好，世界",
       hi: "नमस्ते दुनिया",

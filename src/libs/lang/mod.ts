@@ -118,8 +118,8 @@ export namespace Lang {
     return "en"
   }
 
-}
+  export function match(record: Record<Lang, string>) {
+    return record[get()]
+  }
 
-export function delocalize(localized: Record<Lang, string>) {
-  return localized[document.documentElement.lang || "en"]
 }
