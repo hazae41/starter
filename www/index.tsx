@@ -2,7 +2,7 @@
 
 /// <reference lib="dom" />
 
-import { delocalize, dirs, Lang } from "@/libs/lang/mod.ts";
+import { dirs, Lang } from "@/libs/lang/mod.ts";
 import { App } from "@/mods/app/mod.tsx";
 import { immutable } from "@hazae41/immutable";
 import { Rewind } from "@hazae41/rewind";
@@ -52,7 +52,7 @@ async function upgrade() {
 
   if (update == null)
     return registration
-  if (!confirm(delocalize(AnUpdateIsAvailable(location.origin))))
+  if (!confirm(Lang.match(AnUpdateIsAvailable(location.origin))))
     return registration
 
   return await update()
