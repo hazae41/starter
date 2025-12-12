@@ -1,4 +1,8 @@
-import { delocalize, Localized } from "@/libs/locale/mod.ts";
+// deno-lint-ignore-file no-unused-vars
+
+/// <reference lib="dom" />
+
+import { delocalize, dirs, Lang } from "@/libs/lang/mod.ts";
 import { App } from "@/mods/app/mod.tsx";
 import { immutable } from "@hazae41/immutable";
 import { Rewind } from "@hazae41/rewind";
@@ -38,7 +42,7 @@ const AnUpdateIsAvailable = (origin: string) => ({
   hu: `Elérhető egy frissítés a ${origin} számára. Szeretne most frissíteni?`,
   sv: `En uppdatering av ${origin} är tillgänglig. Vill du uppdatera nu?`,
   da: `En opdatering af ${origin} er tilgængelig. Vil du opdatere nu?`,
-} satisfies Localized)
+} as const)
 
 async function upgrade() {
   if (navigator.serviceWorker.controller != null)
@@ -58,15 +62,17 @@ function Body() {
   const [client, setClient] = useState(false)
 
   useEffect(() => {
+    const lang = Lang.get()
+
+    document.documentElement.lang = lang
+    document.documentElement.dir = dirs[lang]
+
     setClient(true)
   }, [])
 
   useEffect(() => {
-    upgrade().then(console.log).catch(console.error)
+    upgrade().catch(console.error)
   }, [])
-
-  if (!client && document.documentElement.lang === "null")
-    return null
 
   return <App />
 }
@@ -78,7 +84,12 @@ if (process.env.PLATFORM === "browser") {
 } else {
   const params = new URLSearchParams(location.search)
 
-  document.documentElement.lang = params.get("locale")
+  const lang = params.get("lang") as Lang | null
+
+  if (lang != null) {
+    document.documentElement.lang = lang
+    document.documentElement.dir = dirs[lang]
+  }
 
   const prerender = async (node: ReactNode) => {
     const ReactDOM = await import("react-dom/static")

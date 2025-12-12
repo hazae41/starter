@@ -1,12 +1,10 @@
 /// <reference lib="webworker" />
 
-import { immutable } from "@hazae41/immutable"
+import { immutable } from "@hazae41/immutable";
 
 declare const self: ServiceWorkerGlobalScope
 
-/**
- * Declare global template
- */
+declare const CACHE: string
 declare const FILES: [string, string][]
 
 /**
@@ -15,7 +13,7 @@ declare const FILES: [string, string][]
 // @ts-ignore: process not found
 // deno-lint-ignore no-process-global
 if (process.env.NODE_ENV === "production") {
-  const cache = new immutable.cache.Cache(new Map(FILES))
+  const cache = new immutable.cache.Cacher(CACHE, new Map(FILES))
 
   self.addEventListener("install", (event) => {
     /**
