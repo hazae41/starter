@@ -1,6 +1,6 @@
-# Starter
+# Create Secure Webapp
 
-Start a secure webapp with React and Tailwind
+Make a secure webapp with React and Tailwind
 
 ## Features
 
