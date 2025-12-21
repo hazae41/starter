@@ -25,28 +25,28 @@ Make a secure webapp with React and Tailwind
 
 ### Development
 
-Install Deno
-
-```bash
-npm install -g deno
-```
-
 Clone this repository
 
 ```bash
-git clone https://github.com/hazae41/create-secure-webapp.git starter && cd ./starter && rm -rf ./.git && git init
+git clone https://github.com/hazae41/create-secure-webapp.git starter && cd ./starter
 ```
 
-Install
+Reset the Git history
 
 ```bash
-deno install
+rm -rf ./.git && git init
 ```
 
-Develop
+Install dependencies
 
 ```bash
-deno task develop
+npm install
+```
+
+Start developing
+
+```bash
+npm run develop
 ```
 
 ### Vercel
@@ -54,7 +54,7 @@ deno task develop
 Just setup the build command
 
 ```bash
-deno task examine && deno task prepack
+npm run examine && npm run prepack
 ```
 
 The output directory
@@ -66,7 +66,7 @@ The output directory
 The install command
 
 ```bash
-npm install -g deno && deno install
+npm install
 ```
 
 ## Usage
@@ -74,31 +74,25 @@ npm install -g deno && deno install
 - Develop
 
 ```bash
-deno task develop
+npm run develop
 ```
 
 
 - Test
 
 ```bash
-deno task examine
+npm run examine
 ```
 
 
 - Build
 
 ```bash
-deno task prepack
+npm run prepack
 ```
 
 - Serve
 
 ```bash
-deno task produce
-```
-
-- Install new package
-
-```bash
-npm install [-D] <package>
+npm run produce
 ```
